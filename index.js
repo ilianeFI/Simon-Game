@@ -5,12 +5,13 @@ var gameState=false;
 var level=0;
 
 //Detecting keyPress
-if(gameState===false){
-    $(document).on("keydown",function(){
-        nextSequence();
-        gameState=true;
-    });
-}
+$(document).on("keydown",function(){
+    if(gameState===false){
+       nextSequence();
+       gameState=true; 
+    }
+    
+});
 
 
 function nextSequence(){
