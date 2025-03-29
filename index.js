@@ -13,7 +13,6 @@ $(document).on("keydown",function(){
     
 });
 
-
 function nextSequence(){
     userClickedPattern=[];
     var randomNumber=Math.floor(Math.random()*4);//generate A random Number
