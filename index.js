@@ -4,13 +4,35 @@ var buttonCoulours=["red","yellow","blue","green"];
 var gameState=false;
 var level=0;
 
-//Detecting keyPress
+const keyMappings = {
+    "a": 'green',
+    "z": 'red',
+    "q": 'yellow',
+    "s": "blue"
+};
+
+//Detecting keyPress for game start
 $(document).on("keydown",function(){
     if(gameState===false){
        nextSequence();
        gameState=true; 
     }
-    
+});
+//detecting keypress for buttons
+$(document).on("keydown",function(event){
+ 
+    if(gameState===true
+    ){
+        var keyPressed=event.key.toLowerCase();
+        if(keyMappings[keyPressed]){
+            var color=keyMappings[keyPressed];
+            userClickedPattern.push(color);
+            $("#"+color).fadeOut(100).fadeIn(100);
+            animatePress(color);
+            playSound(color);
+            checkAnswer(userClickedPattern.length-1);
+        }
+    }
 });
 
 function nextSequence(){
@@ -21,7 +43,7 @@ function nextSequence(){
     $("#" + randomChosenColour).fadeOut(100).fadeIn(100); //flash
      playSound(randomChosenColour);//play sound for coulour
     level++;
-    $("h1").text("level "+level);
+    $("#level-title").text("level "+level);
 }
 //function to play sound for random button
 function playSound(name){
@@ -38,6 +60,8 @@ $(".btn").on("click",function(){
     animatePress(userChosenColour);
     checkAnswer(userClickedPattern.length-1);
  });
+ //key clicking 
+
 
 function animatePress(currentCoulour){
     $("#"+currentCoulour).addClass("pressed");
